@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
 public class Dashboard {
-    private String enumType;
+    private final String enumType;
     private Double totalValue;
     private Double Daverage;
     private double totalEntries;
@@ -12,7 +12,7 @@ public class Dashboard {
         enumType = String.valueOf(enumtype).toLowerCase();
     }
     public String getType() {
-        return enumType.toString();
+        return enumType;
     }
 
     public Double getTotalEntries() {
@@ -33,26 +33,24 @@ public class Dashboard {
         return bd.doubleValue();
     }
 
-    public Dashboard runData() throws IOException {
-        String line = "";
+    public void runData() throws IOException {
+        String line;
         String splitBy = ",";
-        String category = "";
         double total = 0.0;
         int count = 0;
         double caverage = 0;
         BufferedReader br = new BufferedReader(new FileReader("src/main/History.csv"));
             while ((line = br.readLine()) != null) {
                 String[] csvdata = line.split(splitBy);
-                String date = csvdata[0];
+                //String date = csvdata[0];
                 String location = csvdata[1].replace(" )))", "");
-                Double value = Double.valueOf(csvdata[2].replace("-", ""));
+                double value = Double.parseDouble(csvdata[2].replace("-", ""));
                 File fileReader = new File("src/main/categories/" + enumType + ".txt");
 
                 Scanner myReader = new Scanner(fileReader);
                 while (myReader.hasNextLine()) {
                     String data = myReader.nextLine();
                     if (location.contains(data)) {
-                        category = enumType;
                         count++;
                         total += value;
                         value++;
@@ -64,6 +62,5 @@ public class Dashboard {
         totalEntries = count;
         totalValue = total;
         Daverage = caverage;
-        return null;
     }
 }

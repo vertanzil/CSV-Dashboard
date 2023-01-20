@@ -4,7 +4,8 @@ public class Main {
     public static void Stats(enumTypes Type) throws IOException {
         Dashboard name1 = new Dashboard(Type);
         name1.runData();
-        System.out.print(name1.getType() + " " + "total spent" + " " +  name1.getTotalValue() +  "" + " " + name1.getTotalEntries());
+        System.out.print(name1.getType() + " " + "total spent: £" +  name1.getTotalValue() +  " "
+                + "total entries:"  + name1.getTotalEntries() + " " + "Average: £" +name1.getAverage());
         System.out.print(System.lineSeparator());
     }
     public static void main(String[] args) {
